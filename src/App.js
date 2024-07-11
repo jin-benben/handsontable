@@ -1,39 +1,36 @@
-import React, { Component } from "react";
+import React, { Component, useRef, useState } from "react";
 import "./App.css";
 import { HotColumn, HotTable } from "@handsontable/react";
 import "handsontable/dist/handsontable.full.css";
 import { Modal, Tabs } from "antd";
 import { Button } from "antd";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.myTable = React.createRef();
-    this.state = {
-      modalVisible: false
-    };
+const myData = [[1, 1, 1, 1, 1]];
+
+const App = () =>{
+  const [modalVisible,setModalVisible]=useState(false)
+  const myTable1 = useRef();
+  const myTable2 = useRef();
+  const myTable3 = useRef();
+  const onChange=()=>{
+    myTable2.current?.hotInstance.render();
+    myTable1.current?.hotInstance.render();
   }
-  render() {
-    const myData = [[1, 1, 1, 1, 1]];
+  
+
+   
     return (
       <div style={{ padding: "30px" }}>
         <Button
-          onClick={() => {
-            this.setState(prevState => ({
-              modalVisible: !prevState.modalVisible
-            }));
-          }}
+          onClick={() =>setModalVisible(true)}
         >
           TEST
         </Button>
-        <Modal open={this.state.modalVisible} onCancel={
-          () => {
-            this.setState(prevState => ({
-              modalVisible: !prevState.modalVisible
-            }));
-          }
+        <Modal open={modalVisible} onCancel={
+          () => setModalVisible(false)
         }>
           <HotTable
+            ref={myTable1}
             data={myData}
             width='500'
             height='500'
@@ -41,12 +38,13 @@ class App extends Component {
             rowHeaders
           />
         </Modal>
-        <Tabs items={[
+        <Tabs onChange={onChange} items={[
           {
             label: "test1",
             key: "test1",
             children: (
               <HotTable
+                ref={myTable2}
                 data={myData}
                 width='500'
                 height='500'
@@ -61,6 +59,7 @@ class App extends Component {
             key: "test2",
             children: (
               <HotTable
+                ref={myTable3}
                 data={myData}
                 width='500'
                 height='500'
@@ -72,7 +71,6 @@ class App extends Component {
         ]} />
       </div>
     );
-  }
 }
 
 export default App;
