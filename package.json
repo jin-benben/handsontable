@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@handsontable/react": "^14.4.0",
+    "@handsontable/react": "^14.6.1",
     "antd": "^5.19.1",
-    "handsontable": "^14.4.0",
+    "handsontable": "^14.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"

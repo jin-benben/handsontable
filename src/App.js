@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import "./App.css";
 import { HotTable } from "@handsontable/react";
 import "handsontable/dist/handsontable.full.css";
@@ -39,11 +39,10 @@ const App = () => {
         colHeaders
         rowHeaders
       />
-      <Modal title="test" width={600} open={modalVisible} onClose={() => setModalVisible(false)}>
+      <Modal title="test" width={600} open={modalVisible} onCancel={() => setModalVisible(false)}>
         <HotTable
           data={myData}
           columns={columns}
-        
           height={300}
           colHeaders
           rowHeaders
