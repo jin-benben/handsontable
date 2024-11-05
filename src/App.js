@@ -1,76 +1,56 @@
-import React, { Component, useRef, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { HotColumn, HotTable } from "@handsontable/react";
+import { HotTable } from "@handsontable/react";
 import "handsontable/dist/handsontable.full.css";
-import { Modal, Tabs } from "antd";
+import { Modal } from "antd";
 import { Button } from "antd";
+import { myData} from './data.ts'
 
-const myData = [[1, 1, 1, 1, 1]];
 
-const App = () =>{
-  const [modalVisible,setModalVisible]=useState(false)
-  const myTable1 = useRef();
-  const myTable2 = useRef();
-  const myTable3 = useRef();
-  const onChange=()=>{
-    myTable2.current?.hotInstance.render();
-    myTable1.current?.hotInstance.render();
+const columns = [
+  { data: "a", },
+  { data: "b", },
+  { data: "c" },
+  { data: "d" },
+  { data: "e" },
+  { data: "f" },
+  { data: "g" },
+  { data: "h" },
+  { data: "i" },
+  { data: "j" },
+  { data: "k" },
+  { data: "l" },
+  { data: "m" },
+  { data: "n" },
+  { data: "o" },
+];
+
+const App = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const look = () => {
+    setModalVisible(true)
   }
-  
-
-   
-    return (
-      <div style={{ padding: "30px" }}>
-        <Button
-          onClick={() =>setModalVisible(true)}
-        >
-          TEST
-        </Button>
-        <Modal open={modalVisible} onCancel={
-          () => setModalVisible(false)
-        }>
-          <HotTable
-            ref={myTable1}
-            data={myData}
-            width='500'
-            height='500'
-            colHeaders
-            rowHeaders
-          />
-        </Modal>
-        <Tabs onChange={onChange} items={[
-          {
-            label: "test1",
-            key: "test1",
-            children: (
-              <HotTable
-                ref={myTable2}
-                data={myData}
-                width='500'
-                height='500'
-                colHeaders
-                rowHeaders
-              />
-
-            )
-          },
-          {
-            label: "test2",
-            key: "test2",
-            children: (
-              <HotTable
-                ref={myTable3}
-                data={myData}
-                width='500'
-                height='500'
-                colHeaders
-                rowHeaders
-              />
-            )
-          }
-        ]} />
-      </div>
-    );
+  return (
+    <div style={{ padding: "30px" }}>
+      <Button onClick={look}>open</Button>
+      <HotTable
+        data={myData}
+        columns={columns}
+        colHeaders
+        rowHeaders
+      />
+      <Modal title="test" width={600} open={modalVisible} onClose={() => setModalVisible(false)}>
+        <HotTable
+          data={myData}
+          columns={columns}
+        
+          height={300}
+          colHeaders
+          rowHeaders
+        />
+      </Modal>
+    </div>
+  );
 }
 
 export default App;
